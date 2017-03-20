@@ -93,4 +93,4 @@ ENV/
 # Custom
 /dataset/processed/*.avi
 /dataset/processed/*.pickle
-/dataset/processed/*.oneshot
+/dataset/processed/*.json
