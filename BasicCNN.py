@@ -10,6 +10,7 @@ batch_size = 32
 EPOCHS = 10
 directory = './dataset/processed/'
 pickleName = 'dataset.pickle'
+modelDirectory = './models/BasicModel/'
 
 with open(directory+pickleName,'rb') as fp:
     dataset = pickle.load(fp)
@@ -59,5 +60,5 @@ with tf.Session() as sess:
                          sess.run(predict_op, feed_dict={X: teX[test_indices],
                                                          p_keep_conv: 1.0,
                                                          p_keep_hidden: 1.0})))
-        saver.save(sess,'./models/BasicModel/')
+        saver.save(sess,modelDirectory)
 

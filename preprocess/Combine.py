@@ -22,6 +22,9 @@ fileNames = [f for f in listdir(directory) if isfile(join(directory, f)) and \
 
 for fileName in fileNames:
     cap = cv2.VideoCapture(directory+fileName)
+    if fileName not in outputLabels:
+        continue
+    
     dataset[fileName] = [[],[]]
     oneHot = outputLabels[fileName]
     frameCounter = 0
