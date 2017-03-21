@@ -20,6 +20,7 @@ with open('../dataset/time.json') as fp:
 dataset = {}
 
 for k in obj:
+    print(k)
     dataset[k] = windowsToOneHot(obj[k])
 
 with open('../dataset/processed/onehot.json','w') as fp:

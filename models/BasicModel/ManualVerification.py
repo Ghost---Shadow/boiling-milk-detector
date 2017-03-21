@@ -4,11 +4,13 @@ import numpy as np
 
 modelDirectory = './'
 videoDirectory = '../../dataset/processed/'
-fileName = '001.avi'
+fileName = '009.avi'
 
 cap = cv2.VideoCapture(videoDirectory+fileName)
 
-with tf.Session() as sess:
+sess = tf.Session()
+#with tf.Session() as sess:
+if True:
     sess.run(tf.global_variables_initializer())
     saver = tf.train.Saver()
     saver.restore(sess,modelDirectory)

@@ -9,7 +9,8 @@ from os.path import isfile, join
 
 DEBUG = False
 
-dataset = {}
+dataset0 = []
+dataset1 = []
 directory = '../dataset/processed/'
 jsonName = 'onehot.json'
 pickleName = 'dataset.pickle'
@@ -25,8 +26,7 @@ for fileName in fileNames:
     if fileName not in outputLabels:
         continue
     print(fileName)
-    
-    dataset[fileName] = [[],[]]
+
     oneHot = outputLabels[fileName]
     frameCounter = 0
     
@@ -35,20 +35,19 @@ for fileName in fileNames:
         if ret == False:
             break
 
-        # Image
-        dataset[fileName][0].append(cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY))
-
-        # Label
-        if frameCounter < len(oneHot): 
-            dataset[fileName][1].append(oneHot[frameCounter])
+        if frameCounter < len(oneHot):
+            if oneHot[frameCounter][0] == 1:
+                dataset0.append(cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY))
+            else:
+                dataset1.append(cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY))
         else:
-            dataset[fileName][1].append([0,1]) # False
+            dataset1.append(cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY))
 
         if DEBUG:
-            if dataset[fileName][1][-1][0] == 1: # True
-                cv2.imshow('win',dataset[fileName][0][-1])
+            if oneHot[frameCounter][0] == 1: # True
+                cv2.imshow('win',frame)
             else: # Show the image darker
-                cv2.imshow('win',(dataset[fileName][0][-1]*.25).astype(np.uint8))
+                cv2.imshow('win',(frame*.25).astype(np.uint8))
             if cv2.waitKey(int(1000/20)) & 0xFF == ord('q'):
                 break
         
@@ -57,6 +56,22 @@ for fileName in fileNames:
 
 cv2.destroyAllWindows()
 
+minLength = min(len(dataset0),len(dataset1))
+
+dataset = {'x':[[],[]]}
+d = dataset['x']
+
+np.random.shuffle(dataset0)
+np.random.shuffle(dataset1)
+
+for i in range(minLength):
+    d[0].append(dataset0[i])
+    d[1].append([1,0])
+
+for i in range(minLength):
+    d[0].append(dataset1[i])
+    d[1].append([0,1])
+
 with open(directory+pickleName,'wb') as fp:
-        pickle.dump(dataset,fp)
+    pickle.dump(dataset,fp)
     
