@@ -1,14 +1,12 @@
-from BasicModel import *
+from TinyModel import *
 import cv2
 import numpy as np
 
 modelDirectory = './'
 videoDirectory = '../../dataset/processed/'
-fileName = '001.avi'
+fileName = '003.avi'
 
 cap = cv2.VideoCapture(videoDirectory+fileName)
-
-out = ""
 
 #sess = tf.Session()
 with tf.Session() as sess:
@@ -27,12 +25,8 @@ with tf.Session() as sess:
         frame = frame.reshape((frame.shape[0],frame.shape[1],1))
         #print(frame.shape)
         
-        confidenceVec,prediction = sess.run((py_x, predict_op),
-                                            feed_dict={X: [frame],
-                                                       p_keep_conv: 1.0,
-                                                       p_keep_hidden: 1.0})
+        prediction = sess.run(predict_op, feed_dict={X: [frame], p_keep_conv: 1.0, p_keep_hidden: 1.0})
         #print(prediction)
-        out += str(confidenceVec[0])+'\n'
         if prediction[0] == 0: # True
             cv2.imshow('win',frame)
         else: # Show the image darker
@@ -43,6 +37,3 @@ with tf.Session() as sess:
 
 cap.release()
 cv2.destroyAllWindows()
-
-with open('./debug.log','w') as f:
-    f.write(out)

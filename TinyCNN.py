@@ -1,16 +1,16 @@
 #!/usr/bin/env python
 import numpy as np
 import pickle
-from models.BasicModel.BasicModel import *
+from models.TinyModel.TinyModel import *
 
 print('Starting')
 
 batch_size = 32
 #test_size = 256
-EPOCHS = 10
+EPOCHS = 20
 directory = './dataset/processed/'
 pickleName = 'dataset.pickle'
-modelDirectory = './models/BasicModel/'
+modelDirectory = './models/TinyModel/'
 
 with open(directory+pickleName,'rb') as fp:
     dataset = pickle.load(fp)
