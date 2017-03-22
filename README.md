@@ -13,3 +13,4 @@ Used the CNN architecture of [nlintz](https://github.com/nlintz/TensorFlow-Tutor
 
 1. In the `preprocess` folder, run `ProcessVideos.py` > `WindowsToOneHot.py` > `Combine.py` in order.
 2. Run `BasicCNN.py`
+3. After the model is trained, select the video to test in `ManualVerification.py` and run
