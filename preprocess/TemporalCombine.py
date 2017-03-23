@@ -14,13 +14,13 @@ dataset1 = []
 directory = '../dataset/processed/'
 jsonName = 'onehot.json'
 pickleName = 'dataset_temporal.pickle'
+FPS = 20
 
 with open(directory+jsonName) as fp:
     outputLabels = json.load(fp)
 
 fileNames = [f for f in listdir(directory) if isfile(join(directory, f)) and \
              (join(directory, f).find(".avi") > 0)]
-#fileNames = ['002.avi']
 frames = None
 
 for fileName in fileNames:
@@ -29,8 +29,15 @@ for fileName in fileNames:
         continue
     print(fileName)
 
+    ret, frame = cap.read()
+    width,height = frame.shape[1],frame.shape[0]
+
     oneHot = outputLabels[fileName]
     frameCounter = 0
+
+    fourcc = cv2.VideoWriter_fourcc(*'XVID')
+    newFileName = fileName.split('.')[0] + '_T.avi'
+    out = cv2.VideoWriter(directory+newFileName,fourcc, FPS, (width,height))
     
     while cap.isOpened():
         frameCounter += 1   
@@ -70,6 +77,8 @@ for fileName in fileNames:
         else:
             dataset1.append(frames)
 
+        out.write(frames)
+        
         # Display
         if DEBUG:
             if oneHot[frameCounter-1][0] == 1: # True
@@ -100,6 +109,6 @@ for i in range(minLength):
     d[0].append(dataset1[i])
     d[1].append([0,1])
 
-with open(directory+pickleName,'wb') as fp:
-    pickle.dump(dataset,fp)
+#with open(directory+pickleName,'wb') as fp:
+#    pickle.dump(dataset,fp)
     

@@ -1,10 +1,10 @@
-from BasicModel import *
+from TemporalModel import *
 import cv2
 import numpy as np
 
 modelDirectory = './'
 videoDirectory = '../../dataset/processed/'
-fileName = '001.avi'
+fileName = '004_T.avi'
 
 cap = cv2.VideoCapture(videoDirectory+fileName)
 
@@ -22,9 +22,9 @@ with tf.Session() as sess:
         if ret == False:
             break
 
-        frame = cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY)
+        #frame = cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY)
         frame = np.array(list(frame),dtype=np.float32) / 255.0
-        frame = frame.reshape((frame.shape[0],frame.shape[1],1))
+        #frame = frame.reshape((frame.shape[0],frame.shape[1],1))
         #print(frame.shape)
         
         confidenceVec,prediction = sess.run((py_x, predict_op),

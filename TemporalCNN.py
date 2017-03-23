@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import numpy as np
 import pickle
-from models.BasicModel.BasicModel import *
+from models.TemporalModel.TemporalModel import *
 
 print('Starting')
 
@@ -9,8 +9,8 @@ batch_size = 32
 #test_size = 256
 EPOCHS = 10
 directory = './dataset/processed/'
-pickleName = 'dataset.pickle'
-modelDirectory = './models/BasicModel/'
+pickleName = 'dataset_temporal.pickle'
+modelDirectory = './models/TemporalModel/'
 
 with open(directory+pickleName,'rb') as fp:
     dataset = pickle.load(fp)
@@ -31,11 +31,11 @@ np.random.shuffle(tr)
 test_size = int(len(tr)/10) # 10% for testing
 
 trX = np.array(list(tr[:-test_size,0]),dtype=np.float32) / 255.0
-trX = trX.reshape((trX.shape[0],trX.shape[1],trX.shape[2],1))
+#trX = trX.reshape((trX.shape[0],trX.shape[1],trX.shape[2],1))
 trY = np.array(list(tr[:-test_size,1]),dtype=np.uint8)
 
 teX = np.array(list(tr[-test_size:,0]),dtype=np.float32) / 255.0
-teX = teX.reshape((teX.shape[0],teX.shape[1],teX.shape[2],1))
+#teX = teX.reshape((teX.shape[0],teX.shape[1],teX.shape[2],1))
 teY = np.array(list(tr[-test_size:,1]),dtype=np.uint8)
 
 del dataset
@@ -63,4 +63,5 @@ with tf.Session() as sess:
                                                          p_keep_conv: 1.0,
                                                          p_keep_hidden: 1.0})))
         saver.save(sess,modelDirectory)
+
 
