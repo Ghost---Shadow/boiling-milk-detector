@@ -3,8 +3,8 @@ import sys
 import numpy as np
 import cv2
 
-modelDirectory = "../models/BasicModel/"
-scriptpath = "../models/BasicModel/"
+modelDirectory = "../../models/BasicModel/"
+scriptpath = "../../models/BasicModel/"
 sys.path.append(os.path.abspath(scriptpath))
 
 from BasicModel import *

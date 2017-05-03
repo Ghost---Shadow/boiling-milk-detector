@@ -94,6 +94,7 @@ ENV/
 /dataset/processed/*.avi
 /dataset/processed/*.pickle
 /dataset/processed/*.json
+/DeepDreamTest/*/*.png
 .data*
 .index
 .meta
