@@ -4,7 +4,7 @@ import numpy as np
 
 modelDirectory = './'
 videoDirectory = '../../dataset/processed/'
-fileName = '003.avi'
+fileName = '004.avi'
 
 cap = cv2.VideoCapture(videoDirectory+fileName)
 

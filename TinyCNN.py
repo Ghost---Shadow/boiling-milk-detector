@@ -7,7 +7,7 @@ print('Starting')
 
 batch_size = 32
 #test_size = 256
-EPOCHS = 20
+EPOCHS = 10
 directory = './dataset/processed/'
 pickleName = 'dataset.pickle'
 modelDirectory = './models/TinyModel/'
@@ -44,7 +44,6 @@ saver = tf.train.Saver()
 
 # Launch the graph in a session
 with tf.Session() as sess:
-    # you need to initialize all variables
     tf.global_variables_initializer().run()
 
     for i in range(EPOCHS):

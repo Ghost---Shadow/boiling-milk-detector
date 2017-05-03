@@ -44,7 +44,6 @@ saver = tf.train.Saver()
 
 # Launch the graph in a session
 with tf.Session() as sess:
-    # you need to initialize all variables
     tf.global_variables_initializer().run()
 
     for i in range(EPOCHS):
